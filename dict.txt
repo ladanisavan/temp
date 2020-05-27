@@ -1,0 +1,4 @@
+pan
+dl
+bank_chk
+aadhaar
