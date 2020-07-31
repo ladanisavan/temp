@@ -1,0 +1,22 @@
+<html>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+<script src="https://unpkg.com/@tensorflow/tfjs-automl"></script>
+<!--<script src="automl.js"></script>-->
+<img id="salad" crossorigin="anonymous" src="https://raw.githubusercontent.com/Deep-ML789/InvoiceModel/master/invoice.jpg">
+<script>
+async function run() {
+  const model = await tf.automl.loadObjectDetection('https://raw.githubusercontent.com/Deep-ML789/InvoiceModel/master/model.json', ["background", "total_amt", "inv_number", "inv_date", "table"]);
+  const img = document.getElementById('salad');
+  const options = {score: 0.5, iou: 0.5, topk: 20};
+  const predictions = await model.detect(img, options);
+  console.log(predictions);
+  // Show the resulting object on the page.
+  const pre = document.createElement('pre');
+  pre.textContent = JSON.stringify(predictions, null, 2);
+  document.body.append(pre);
+}
+run();
+</script>
+</body>
+</html>
